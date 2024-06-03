@@ -9,10 +9,12 @@ This application is licensed under `CC BY-NC 4.0`. No commercial use. This sourc
 
 
 ## Installation and useage
-Donload this project and install it using `npm install`. If necessary change the angular serve-ip adress. For local testing it is recommened to use self signed SSL-Certiciates (see below).
+Donload this project and install it using `npm install`. Make sure that angular is installed on your system. 
+If necessary change the angular serve-ip adress. For local testing it is recommened to use self signed SSL-Certiciates (see below).
 
 Configuration for the backend can be changed under `/src/environments/environment.ts` and `..environment.prod.ts`.
 
+Serve locally with `ng serve`.
 
 ### SSL encryption for local testing
 This Application need SSL-encryption (https). 
