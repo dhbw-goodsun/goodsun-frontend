@@ -34,6 +34,13 @@ export class ObstacleDatasetControlComponent implements OnInit {
     return dataset.dataPoints!.length;
   }
 
+
+  /**
+   * Make militimestamp to clock time.
+   * 
+   * @param timestamp in milis
+   * @returns clock time (in hours)
+   */
   getTimeFromTimestamp(timestamp: number): string {
     let currentDate: Date = new Date(timestamp);
     let currentHour: number = currentDate.getHours();
@@ -43,11 +50,17 @@ export class ObstacleDatasetControlComponent implements OnInit {
   }
 
 
+  /**
+   * Navigate to scan-page for new scan.
+   */
   addScan() {
     this.router.navigate(['/calc/scan', this.solarPanel.panelID]);
   }
 
-  /* Deletes obstacle dataset and emits event for parent component (Solar-Panel-Control), to update the User Data Service */
+  
+  /**
+   * Delete obstacle dataset and emits event for parent component (Solar-Panel-Control), to update the User Data Service.
+   * */
   deleteDataset(id: number) {
     this.obstacleDatasets.delete(id);
     this.solarPanel.panelObstacleDatasets = Array.from(this.obstacleDatasets.values())

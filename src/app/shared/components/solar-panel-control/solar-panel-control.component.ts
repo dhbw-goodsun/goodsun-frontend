@@ -37,18 +37,31 @@ export class SolarPanelControlComponent implements OnInit {
   }
 
 
+  /**
+   * Add new solar panel and close modal.
+   */
   addNewSolarPanel() {
     this.solarPanel = { panelID: uuidv4() };
     this.switchSolarPanelModal();
   }
 
   
+  /**
+   * Delete solar panel with id and update the saved data.
+   * 
+   * @param id of panel
+   */
   deleteSolarPanel(id: string) {
     this.solarPanels.delete(id);
     this.updateUserDataService();
   }
 
 
+  /**
+   * Modify solar panel with id and open modal.
+   * 
+   * @param id of panel
+   */
   modifySolarPanel(id: string) {
     this.isModifying = true;
     this.solarPanel = this.solarPanels.get(id)!
@@ -56,6 +69,9 @@ export class SolarPanelControlComponent implements OnInit {
   }
 
 
+  /**
+   * Save panel and input information.
+   */
   saveSolarPanel() {
     if (this.solarPanel.panelWatts != null && this.solarPanel.panelAzimuth != null && this.solarPanel.panelElevation != null) {
       this.solarPanels.set(this.solarPanel.panelID!, this.solarPanel);
@@ -69,6 +85,9 @@ export class SolarPanelControlComponent implements OnInit {
   }
 
 
+  /**
+   * Switch modal.
+   */
   switchSolarPanelModal() {
     if (!this.isSolarPanelControlModalVisible) {
       this.closeNotification();
@@ -81,7 +100,9 @@ export class SolarPanelControlComponent implements OnInit {
   }
 
 
-  /* Handle when datasets in one panel are updated (removed). Update User Data Service. */
+  /**
+   * Handle when datasets in one panel are updated (removed). Update User Data Service. 
+   */
   handleObstacleDatasetUpdate(panel: ISolarPanel) {
     this.solarPanels.delete(panel.panelID!)
     this.solarPanels.set(panel.panelID!, panel);
@@ -89,13 +110,16 @@ export class SolarPanelControlComponent implements OnInit {
     this.updateUserDataService();
   }
 
+
   private updateUserDataService() {
     this.uds.setUserData({ userPanels: Array.from(this.solarPanels.values()) })
   }
 
+
   closeNotification() {
     this.isNotificationVisible = false;
   }
+
 
   openNotification() {
     this.isNotificationVisible = true;

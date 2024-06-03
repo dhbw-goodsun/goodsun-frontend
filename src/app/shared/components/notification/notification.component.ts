@@ -11,6 +11,10 @@ export class NotificationComponent {
   @Input() type: string = "";
   @Output() onClose = new EventEmitter<any>();
 
+
+  /**
+   * Close notification.
+   */
   close() {
     this.onClose.emit();
   }

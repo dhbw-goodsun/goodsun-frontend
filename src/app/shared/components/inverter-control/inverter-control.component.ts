@@ -35,17 +35,29 @@ export class InverterControlComponent implements OnInit {
   }
 
 
+  /**
+   * Add new inverter and close modal.
+   */
   addNewInverter() {
     this.inverter = { inverterID: uuidv4() }
     this.switchInverterModal();
   }
 
+  
+  /**
+   * Delete inverter and update the saved data.
+   */
   deleteInverter(id: string) {
     this.inverters.delete(id);
     this.updateUserDataService();
   }
 
 
+  /**
+   * Modify inverter with id and open modal.
+   * 
+   * @param id of inverter
+   */
   modifyInverter(id: string) {
     this.inverter = this.inverters.get(id)!
     this.isModifying = true;
@@ -53,6 +65,9 @@ export class InverterControlComponent implements OnInit {
   }
 
 
+  /**
+   * Save inverter and input information.
+   */
   saveInverter() {
     if (this.inverter.inverterWatts !== 0 && this.inverter.inverterWatts != null) {
       this.inverters.set(this.inverter.inverterID!, this.inverter);
@@ -65,6 +80,10 @@ export class InverterControlComponent implements OnInit {
     }
   }
 
+  
+  /**
+   * Switch modal.
+   */
   switchInverterModal() {
     if (!this.isInverterControlModalVisible) {
       this.closeNotification();
@@ -76,14 +95,17 @@ export class InverterControlComponent implements OnInit {
    this.updateUserDataService();
   }
 
+
   private updateUserDataService() {
     this.uds.setUserData({ userInverters: Array.from(this.inverters.values()) })
   }
+
 
   closeNotification() {
     this.isNotificationVisible = false;
   }
 
+  
   openNotification() {
     this.isNotificationVisible = true;
   }
