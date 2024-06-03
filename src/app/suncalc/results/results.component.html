@@ -1,0 +1,46 @@
+<section class="section">
+  <div class="container">
+
+    <!-- Display all errors which occur -->
+    <div *ngFor="let err of errors | keyvalue">
+      <app-notification [type]="'is-danger is-light'" (onClose)="closeNotification(err.key)">{{err.value}}</app-notification>
+    </div>
+
+    <h4 class="title is-4">Calculation and Results</h4>
+    <a [routerLink]="['/calc']">&#8592; Back to Setup</a><br>
+
+
+    <div *ngIf="!result" class="box">
+      <h3 class="title is-5">Start Output Forecasting</h3>
+      <p>
+        Begin wih the forecast of your solar system. Simply click the button below to start the forecast. <br>
+        As soon as the result is ready, it will be displayed here.
+      </p>
+      <br>
+      <button (click)="preCheckUserDataForCalculation()" class="button is-rounded is-secondary" [ngClass]="isLoading ? 'is-loading' : ''" [disabled]="errors.size >= 1">Calculate Forecast</button>
+
+      <!--
+      <button (click)="preCheckUserDataForCalculation()" class="button is-rounded is-secondary is-loading" [disabled]="errors.size >= 1">Calculate Forecast</button>
+      -->
+
+    </div>
+
+
+    <div *ngIf="result" class="box">
+      <h3 class="title is-5">Calculation Results</h3>
+      <p>
+        Your forceasted output which incorporates possible shading is <strong>{{result.calculatedOutput}}</strong> kWh per Year.
+      </p>
+      <br>
+      <p>
+        If you would not have included possible shading, your result would be <strong>{{result.calculatedOutputNoShadow}}</strong> kWh per Year.
+      </p>
+      <br>
+      <p>
+        Try going back on the previous page and tweak the settings, to see if your roecasted output changes.
+        More features like downloding a detailed monthly overview or graphical visualisation will be added in the future. Until then: stay sunny!
+      </p>
+    </div>
+
+  </div>
+</section>

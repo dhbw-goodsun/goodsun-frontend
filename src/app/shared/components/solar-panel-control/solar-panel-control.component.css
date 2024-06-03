@@ -1,0 +1,27 @@
+.danger-text {
+    color: red;
+}
+
+
+/* Handels Overflow on too short screens --> modal is scrollable */
+.modal-card-body {
+    min-height: 150px;
+    max-height: 325px;
+    overflow-y: auto;
+}
+
+/* Delete Button on top right */
+.delete {
+    margin-top: 10px;
+    margin-right: 10px;
+}  
+
+/* Edit Button */
+#edit-button {
+    margin-left: 5px;
+}
+
+/* Font Awesome icons */
+.fa {
+    padding-right: 5px;
+}

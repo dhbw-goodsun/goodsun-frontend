@@ -1,0 +1,33 @@
+<div class="table-container">
+
+  <div *ngIf="obstacleDatasets.size > 0; else noDatasets">
+    <table class="table table is-narrow is-hoverable">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Points</th>
+          <th>Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let dataset of obstacleDatasets | keyvalue">
+          <td>{{getTimeFromTimestamp(dataset.key)}}</td>
+          <td>{{getAmountOfDataPoints(dataset.value)}}</td>
+          <td>
+            <button (click)="deleteDataset(dataset.key)" class="button is-rounded is-outlined is-small is-danger">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <small>More scans (> 1) will lead to better results.</small>
+  </div>
+
+
+  <ng-template #noDatasets>
+    No current datasets available. Click below to add a new scan.
+    <br>
+  </ng-template>
+
+  <br>
+  <button (click)="addScan()" class="button is-rounded is-secondary">Add Scan</button>
+</div>

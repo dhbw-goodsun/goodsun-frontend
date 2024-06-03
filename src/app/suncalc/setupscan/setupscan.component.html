@@ -1,0 +1,28 @@
+<section class="section">
+  <div class="container">
+    <h4 class="title is-4">Setup and Prepare Calculation</h4>
+
+    <div class="box">
+      <h3 class="title is-5">GPS Position</h3>
+
+      <div class="columns">
+        <div class="column is-one-third">
+          <div class="field">
+            <div *ngIf="userData?.userGPSCoords; else noGPSPosition">
+              Current GPS-Position: <strong>{{userData.userGPSCoords!.latitude}}</strong>°N/S &nbsp; <strong>{{userData.userGPSCoords!.longitude}}</strong>°E/W             
+            </div>
+            <ng-template #noGPSPosition>
+              <button (click)="getGPSPosition()" class="button is-rounded is-secondary">Get GPS Position</button>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <app-solar-panel-control></app-solar-panel-control>
+    
+    <app-inverter-control></app-inverter-control>
+
+    <a [routerLink]="['/calc/results']">Next Step &#8594;</a><br>
+  </div>
+</section>

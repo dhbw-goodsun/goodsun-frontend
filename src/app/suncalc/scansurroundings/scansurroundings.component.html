@@ -1,0 +1,22 @@
+<section class="section">
+  <div class="container">
+
+    <h4 class="title is-4">Scan surroundings</h4>
+    <a [routerLink]="['/calc']">&#8592; Back to previous page</a> <br>
+
+    <div class="box">
+      <div *ngIf="!isCameraActive">
+        <button (click)="openCamera()" class="button is-rounded is-secondary">Open Camera</button>
+      </div>
+      
+      <div *ngIf="isCameraActive; else elseBlock">
+        <app-camera (startScanEvent)="handleStartScan($event)" (endScanEvent)="handleEndScan()" [isFullCircleScanned]="isFullCircleCompleted()"></app-camera>
+      </div>
+      
+      <ng-template #elseBlock>
+        <br>
+        Not all permits were given for proper function. Try closing this page and re-loading it from scratch.
+      </ng-template>  
+    </div>
+  </div>
+</section>

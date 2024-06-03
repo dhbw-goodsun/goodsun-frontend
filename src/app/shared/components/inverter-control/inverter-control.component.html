@@ -1,0 +1,90 @@
+<div class="box is-flex-wrap">
+  <h3 class="title is-5">Inverter</h3>
+
+  <div *ngIf="inverters.size != 0" class="columns is-full is-mobile is-multiline is-justify-content-space-between">
+
+    <div *ngFor="let inverter of inverters | keyvalue" class="column is-full-mobile is-half-tablet is-half-desktop is-half-widescreen is-one-third-fullhd">
+      <div class="card">
+        <header class="card-header">
+          <p *ngIf="inverter!.value.inverterName; else noName" class="card-header-title">
+            {{inverter!.value.inverterName}} Inverter
+            <button (click)="modifyInverter(inverter.key)" class="button is-outlined is-small is-rounded" id="edit-button"><i class="fa fa-pencil"></i>Edit</button>
+          </p>
+          <ng-template #noName>
+            <p class="card-header-title">
+              {{inverter!.value.inverterWatts}} Watts Inverter  
+              <button (click)="modifyInverter(inverter.key)"class="button is-outlined is-small is-rounded" id="edit-button"><i class="fa fa-pencil"></i>Edit</button>        
+            </p>
+          </ng-template>
+          <button (click)="deleteInverter(inverter.key)" class="delete" aria-label="close"></button>
+        </header>
+      
+        <div class="card-content">
+          <div class="content">
+            Rated Watts: <strong>{{inverter!.value.inverterWatts}}</strong>
+            <div *ngIf="inverter!.value.inverterDescription">
+              Description: <strong>{{inverter!.value.inverterDescription}}</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button (click)="addNewInverter()" class="button is-rounded is-secondary" [disabled]="inverters.size >= 1"><i class="fa fa-plus"></i>Add Inverter</button>
+</div>
+
+
+<div class="modal" [ngClass]="{'is-active': isInverterControlModalVisible == true}">
+  <div (click)="switchInverterModal()" class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p *ngIf="!isModifying; else modifying" class="modal-card-title">New Inverter</p>
+      <ng-template #modifying>
+        <p class="modal-card-title">Edit Inverter</p>
+      </ng-template>
+      <button (click)="switchInverterModal()" class="delete" aria-label="close"></button>
+    </header>
+
+
+    <form>
+      <section class="modal-card-body">
+
+        <app-notification *ngIf="isNotificationVisible" [type]="'is-danger is-light'" (onClose)="closeNotification()">Necessary fields weren't filled or filled incorrectly.</app-notification>
+    
+        <div class="columns">
+          <div class="column is-one-quarter">
+            <div class="field">
+              <label class="label">Rated Watts</label>
+              <input [(ngModel)]="inverter.inverterWatts" class="input" name="inverter-watts" type="number" placeholder="600" required>
+            </div>
+          </div>
+
+          <div class="column is-three-quarters">
+            <div class="field">
+                <label class="label">Name (optional)</label>
+              <input [(ngModel)]="inverter.inverterName" class="input" name="inverter-name" type="text" placeholder="My first inverter">
+            </div>
+          </div>
+        </div>
+
+        <div class="columns">
+          <div class="column is-full">
+            <div class="field">
+              <label class="label">Description (optional)</label>
+              <input [(ngModel)]="inverter.inverterDescription" class="input" name="inverter-description" type="text" placeholder="Located in rear of  garden shed.">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="modal-card-foot">
+        <button *ngIf="!isModifying; else notModifying" (click)="saveInverter()" class="button is-success">Save</button>        
+        <ng-template #notModifying>
+          <button (click)="saveInverter()" class="button is-success">Save Changes</button>
+        </ng-template>
+        <button (click)="switchInverterModal()" class="button">Cancel</button>
+      </footer>
+    </form>
+  </div>
+</div>
+

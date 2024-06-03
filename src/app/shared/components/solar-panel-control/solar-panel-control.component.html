@@ -1,0 +1,109 @@
+<div class="box is-flex-wrap">
+  <h3 class="title is-5">Solar Panels</h3>
+
+  <div *ngIf="solarPanels.size != 0" class="columns is-full is-mobile is-multiline is-justify-content-space-between">
+    
+    <div *ngFor="let solarPanel of solarPanels | keyvalue" class="column is-full-mobile is-half-tablet is-half-desktop is-half-widescreen is-one-third-fullhd">
+      <div class="card">
+        <header class="card-header">
+          <p *ngIf="solarPanel!.value.panelDescription; else noName" class="card-header-title">
+            {{solarPanel!.value.panelDescription}} Panel
+            <button (click)="modifySolarPanel(solarPanel.key)" class="button is-outlined is-small is-rounded" id="edit-button"><i class="fa fa-pencil"></i>Edit</button>
+          </p>
+
+          <ng-template #noName>
+            <p class="card-header-title">
+              {{solarPanel!.value.panelWatts}} Watts Panel
+              <button (click)="modifySolarPanel(solarPanel.key)" class="button is-outlined is-small is-rounded" id="edit-button"><i class="fa fa-pencil"></i>Edit</button>
+            </p>
+          </ng-template>
+
+          <button (click)="deleteSolarPanel(solarPanel.key)" class="delete" aria-label="close"></button>
+        </header>
+
+        <div class="card-content">
+          <div class="content">
+            <strong>General Data:</strong> 
+            <br>
+            Watts: <strong>{{solarPanel!.value.panelWatts}}W</strong><br>
+            Azimut: <strong>{{solarPanel!.value.panelAzimuth}}°</strong> &nbsp; Elevation: <strong>{{solarPanel!.value.panelElevation}}°</strong>
+
+            <hr>
+
+            <strong>Obstacle Scan Data:</strong>
+            <app-obstacle-dataset-control [solarPanel]="solarPanel.value" (updatedSolarPanel)="handleObstacleDatasetUpdate($event)"></app-obstacle-dataset-control>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button (click)="addNewSolarPanel()" class="button is-rounded is-secondary"><i class="fa fa-plus"></i>Add Solar Panel</button>
+</div>
+
+
+
+
+<div class="modal" [ngClass]="{'is-active': isSolarPanelControlModalVisible == true}">
+  <div (click)="switchSolarPanelModal()" class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p *ngIf="!isModifying; else modifying" class="modal-card-title">New Solar Panel</p>
+      <ng-template #modifying>
+        <p class="modal-card-title">Edit Solar Panel</p>
+      </ng-template>
+      <button (click)="switchSolarPanelModal()" class="delete" aria-label="close"></button>
+    </header>
+
+    
+    <form>
+      <section class="modal-card-body">
+
+        <app-notification  *ngIf="isNotificationVisible" [type]="'is-danger is-light'" (onClose)="closeNotification()">Necessary fields weren't filled or filled incorrectly.</app-notification>
+
+        <div class="columns">
+          <div class="column is-one-half">
+            <div class="field">
+              <label class="label">Panel Wattage</label>
+              <input [(ngModel)]="solarPanel.panelWatts" class="input" name="solarpanel-watts" type="number" placeholder="1200" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="columns">
+          <div class="column is-one-half">
+            <div class="field">
+              <label class="label">Panel Azimut</label>
+              <input [(ngModel)]="solarPanel.panelAzimuth" class="input" name="solarpanel-azimut" type="number" placeholder="125" required>
+            </div>
+          </div>
+
+          <div class="column is-one-half">
+            <div class="field">
+              <label class="label">Panel Elevation</label>
+              <input [(ngModel)]="solarPanel.panelElevation" class="input" name="isolarpanel-elevation" type="number" placeholder="50" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="columns">
+          <div class="column is-full">
+            <div class="field">
+              <label class="label">Panel Description (optional)</label>
+              <input [(ngModel)]="solarPanel.panelDescription" class="input" name="solarpanel-azimut" type="text" placeholder="Located on roof of garden shed.">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="modal-card-foot">
+        <button *ngIf="!isModifying; else notModifying" (click)="saveSolarPanel()" class="button is-success">Save</button>        
+        <ng-template #notModifying>
+          <button (click)="saveSolarPanel()" class="button is-success">Save Changes</button>
+        </ng-template>
+
+        <button (click)="switchSolarPanelModal()" class="button">Cancel</button>
+      </footer>
+    </form>
+  </div>
+</div>

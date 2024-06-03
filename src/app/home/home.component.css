@@ -1,0 +1,23 @@
+.has-bg-img { 
+    background: url('../../assets/skyscrapers-small.jpg')
+    center center; 
+    background-size: cover; 
+}
+
+.title, .subtitle {
+    color: aliceblue;
+}
+
+.source {
+    color: aliceblue;
+    font-size: 10px;
+}
+
+.source-no-footer {
+    color: rgb(117, 117, 117);
+    font-size: 10px;
+}
+
+.title {
+    color: black;
+}

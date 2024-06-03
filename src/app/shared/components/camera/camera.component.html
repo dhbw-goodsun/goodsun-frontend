@@ -1,0 +1,15 @@
+<div class="outer-container">
+	<div class="inner-container">
+
+		<div *ngIf="!isScanning" class="target"></div>
+		<div *ngIf="isScanning" class="target-scanning"></div>
+
+
+		<div class="overlay-control-buttons">
+			<button *ngIf="!isScanning && !isScanComplete" (click)="startScanButton()" class="button is-primary">Start Scan</button>
+			<button *ngIf="isScanning" (click)="endScanButton()" class="button is-danger" [disabled]="!isFullCircleScanned">End Scan</button>
+			</div>
+
+		<video #videoElement id="player" autoplay playsinline></video>
+	</div>
+</div>
