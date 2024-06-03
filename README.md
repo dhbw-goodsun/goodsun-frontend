@@ -5,7 +5,7 @@ Frontend for the goodsun application. Uses the backend to calculate precise sola
 
 
 ## License
-This application is licensed under `CC BY-NC 4.0`. No commercial use. This source must be named when using or further developing.
+This application is licensed under `CC BY-NC 4.0`. No commercial use. This source must be named when using or developing further.
 
 
 ## Installation and useage
