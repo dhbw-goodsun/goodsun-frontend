@@ -44,6 +44,6 @@ export class ApiService {
    * @param data UserData which is sent.
    */
   async postUserData(data: IUserData): Promise<IResults> {
-    return await this.doPostRequest(`/test2`, data)
+    return await this.doPostRequest(`/yield`, data)
   }
 }
